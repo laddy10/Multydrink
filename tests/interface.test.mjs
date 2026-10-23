@@ -67,15 +67,15 @@ test('Gallery buttons, thumbnails and arrow keys update image and accessible sta
   const ctx = setup();
   assert.match(ctx.$('#hero-image').src, /caja-principal-1254.webp$/);
   ctx.$('#gallery-next').click();
-  assert.match(ctx.$('#hero-image').src, /family.webp$/);
+  assert.match(ctx.$('#hero-image').src, /caja-alternativa-1280.webp$/);
   assert.equal(ctx.$('[data-gallery="1"]').getAttribute('aria-pressed'), 'true');
   ctx.$('#gallery-thumbs').dispatchEvent(new ctx.win.KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
-  assert.match(ctx.$('#hero-image').src, /product.webp$/);
+  assert.match(ctx.$('#hero-image').src, /trabajo-941.webp$/);
   assert.equal(ctx.doc.activeElement, ctx.$('[data-gallery="2"]'));
   ctx.$('#gallery-thumbs').dispatchEvent(new ctx.win.KeyboardEvent('keydown', { key: 'Home', bubbles: true }));
   ctx.$('#gallery-prev').click();
-  assert.equal(ctx.$('#gallery-count').textContent, '05 / 05');
-  assert.match(ctx.$('#hero-image').src, /composiciones-941.webp$/);
+  assert.equal(ctx.$('#gallery-count').textContent, '07 / 07');
+  assert.match(ctx.$('#hero-image').src, /tabla-nutricional-975.webp$/);
   ctx.win.happyDOM.abort();
 });
 test('Menu supports opening, link dismissal and Escape; CTAs point to actual order section', () => {
