@@ -133,7 +133,7 @@ export function initApp(doc = document, win = window, options = {}) {
     const hero = $('#hero-image');
     applyImage(hero, item, '(max-width: 800px) 85vw, 480px');
     $('.gallery-stage').classList.toggle('is-botanical', item.src === 'assets/product.webp');
-    $('#gallery-caption').textContent = item.caption;
+    
     $('#gallery-count').textContent = `${String(galleryIndex + 1).padStart(2, '0')} / ${String(gallery.length).padStart(2, '0')}`;
     $$('[data-gallery]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.gallery) === galleryIndex)));
     $$('[data-presentation]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.presentation === (item.presentation || 'caja'))));
