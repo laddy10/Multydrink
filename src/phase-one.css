@@ -1782,3 +1782,48 @@ existing controls and forms stay intact. */
   #producto .gallery-stage { aspect-ratio: 1 / 1; }
   #producto .gallery-thumbs { justify-content: flex-start; }
 }
+
+
+/* Compact curated gallery thumbnails — Focus-inspired visual rhythm, original MultyDrink media. */
+#producto .gallery-caption { display: none; }
+#producto .gallery-thumbs {
+  display: flex;
+  justify-content: flex-start;
+  gap: 7px;
+  margin-top: 13px;
+  padding: 2px 0 8px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+#producto .gallery-thumb {
+  display: grid;
+  place-items: center;
+  flex: 0 0 58px;
+  width: 58px;
+  height: 60px;
+  padding: 2px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  scroll-snap-align: start;
+}
+#producto .gallery-thumb[aria-pressed="true"] {
+  border-color: #d6d7d0;
+  background: transparent;
+}
+#producto .gallery-thumb:hover { border-color: #849b62; }
+#producto .gallery-thumb img {
+  display: block;
+  width: 52px;
+  height: 54px;
+  object-fit: contain;
+  margin: 0;
+}
+#producto .gallery-thumb span { display: none; }
+#producto .gallery-stage.is-botanical > img { width: 84%; height: 86%; }
+@media (max-width: 560px) {
+  #producto .gallery-thumbs { gap: 5px; }
+  #producto .gallery-thumb { flex-basis: 52px; width: 52px; height: 54px; }
+  #producto .gallery-thumb img { width: 46px; height: 48px; }
+}
