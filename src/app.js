@@ -132,7 +132,10 @@ export function initApp(doc = document, win = window, options = {}) {
     const item = gallery[galleryIndex];
     const hero = $('#hero-image');
     applyImage(hero, item, '(max-width: 800px) 85vw, 480px');
-    $('.gallery-stage').classList.toggle('is-botanical', item.src === 'assets/product.webp');
+    const stage = $('.gallery-stage');
+    stage.classList.toggle('is-botanical', item.src === 'assets/product.webp');
+    // Portrait lifestyle media needs its own frame so the full photo remains visible.
+    stage.classList.toggle('is-portrait', item.height > item.width * 1.25);
     
     $('#gallery-count').textContent = `${String(galleryIndex + 1).padStart(2, '0')} / ${String(gallery.length).padStart(2, '0')}`;
     $$('[data-gallery]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.gallery) === galleryIndex)));
