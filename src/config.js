@@ -35,7 +35,6 @@ export const moments = [
 // Curated product gallery: compact, varied imagery; no busy family-pack montage or ingredient poster.
 export const gallery = [
   ...(productMedia.individual ? [{ ...productMedia.individual, label: 'Caja individual MultyDrink', presentation: 'caja' }] : []),
-  ...(productMedia.alternateBox ? [{ ...productMedia.alternateBox, label: 'Vista alternativa de la caja', presentation: 'caja' }] : []),
   ...['enfoque', 'energia', 'memoria', 'bienestar'].filter(key => productMedia.lifestyle[key]).map(key => ({
     ...productMedia.lifestyle[key],
     label: productMedia.lifestyle[key].alt,
