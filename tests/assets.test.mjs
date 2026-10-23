@@ -77,11 +77,11 @@ test('Responsive candidates are replaced on gallery changes and every rendered i
     assert.equal(preload.getAttribute('imagesrcset'), $('#hero-image').srcset);
     assert.equal(preload.getAttribute('imagesizes'), $('#hero-image').sizes);
     app.displayGallery(1);
-    assert.match($('#hero-image').src, /caja-alternativa-1280.webp$/);
-    assert.equal($('#hero-image').srcset, imageSrcset(productMedia.alternateBox));
-    app.displayGallery(2);
-    assert.ok($('#hero-image').src.endsWith(productMedia.lifestyle.enfoque.src));
+    assert.match($('#hero-image').src, /trabajo-941.webp$/);
     assert.equal($('#hero-image').srcset, imageSrcset(productMedia.lifestyle.enfoque));
+    app.displayGallery(2);
+    assert.ok($('#hero-image').src.endsWith(productMedia.lifestyle.energia.src));
+    assert.equal($('#hero-image').srcset, imageSrcset(productMedia.lifestyle.energia));
     for (const img of win.document.querySelectorAll('img')) {
       await stat(img.getAttribute('src'));
       for (const candidate of (img.getAttribute('srcset') || '').split(',').filter(Boolean)) await stat(candidate.trim().split(' ')[0]);
