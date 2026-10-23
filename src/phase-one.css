@@ -1850,3 +1850,32 @@ existing controls and forms stay intact. */
     max-height: min(735px, 85svh);
   }
 }
+
+/* Product hero: Focus-like first-view scale. The product box remains fully in frame.
+   Portrait photos retain their separate fitted presentation rules below. */
+@media (min-width: 801px) {
+  #producto .gallery-stage:not(.is-portrait) {
+    aspect-ratio: auto;
+    height: clamp(340px, 26vw, 425px);
+    max-height: none;
+  }
+  #producto .gallery-stage:not(.is-portrait) > img {
+    width: 66%;
+    height: 79%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+  #producto .gallery-stage.is-botanical:not(.is-portrait) > img {
+    width: 66%;
+    height: 79%;
+  }
+}
+@media (max-width: 800px) {
+  #producto .gallery-stage:not(.is-portrait) > img {
+    width: 70%;
+    height: 76%;
+    object-fit: contain;
+  }
+}
