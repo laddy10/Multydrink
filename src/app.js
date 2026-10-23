@@ -196,17 +196,28 @@ export function initApp(doc = document, win = window, options = {}) {
     win.history.replaceState(null, '', '#pedido');
   }));
   const sticky = $('.sticky-purchase');
-  if (win.IntersectionObserver) {
-    const visibility = new Map();
-    const observer = new win.IntersectionObserver(entries => {
-      entries.forEach(entry => visibility.set(entry.target, entry.isIntersecting));
-      const hide = [...visibility.values()].some(Boolean);
-      sticky.classList.toggle('is-hidden', hide);
-      sticky.inert = hide;
-      sticky.setAttribute('aria-hidden', String(hide));
-    }, { rootMargin: '0px 0px 0px 0px', threshold: 0 });
-    observer.observe($('#pedido')); observer.observe($('.footer'));
+  const primaryPurchaseCta = $('.main-cta');
+  const orderSection = $('#pedido');
+  const footer = $('.footer');
+  // The sticky purchase prompt appears only once the in-page purchase CTA has
+  // passed above the viewport. It must never obscure the initial hero.
+  function updateStickyVisibility() {
+    const pastPurchaseCta = primaryPurchaseCta.getBoundingClientRect().bottom <= 0;
+    const orderRect = orderSection.getBoundingClientRect();
+    const footerRect = footer.getBoundingClientRect();
+    const atOrder = orderRect.top < win.innerHeight && orderRect.bottom > 0;
+    const atFooter = footerRect.top < win.innerHeight && footerRect.bottom > 0;
+    const hide = !pastPurchaseCta || atOrder || atFooter;
+    sticky.classList.toggle('is-hidden', hide);
+    sticky.inert = hide;
+    sticky.setAttribute('aria-hidden', String(hide));
   }
+  sticky.classList.add('is-hidden');
+  sticky.inert = true;
+  sticky.setAttribute('aria-hidden', 'true');
+  win.addEventListener('scroll', updateStickyVisibility, { passive: true });
+  win.addEventListener('resize', updateStickyVisibility);
+  updateStickyVisibility();
   if (win.ResizeObserver) new win.ResizeObserver(() => doc.documentElement.style.setProperty('--sticky-height', `${Math.ceil(sticky.getBoundingClientRect().height)}px`)).observe(sticky);
   function openDialog(id) { const dialog = doc.getElementById(id); if (dialog && !dialog.open) dialog.showModal(); }
   $$('[data-dialog]').forEach(button => button.addEventListener('click', () => openDialog(button.dataset.dialog)));
