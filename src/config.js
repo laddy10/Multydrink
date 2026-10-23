@@ -32,14 +32,16 @@ export const moments = [
   { id: 'bienestar', tab: 'Bienestar', icon: 'leaf', title: 'Un pequeño ritual, a tu ritmo.', text: 'Conoce lo que tomas y elige una rutina que también incluya alimentación equilibrada, descanso y actividad cotidiana.', points: ['Mucílago de café, uva, agave, ganoderma y té.', '30 mg de vitamina C por porción.', '188 mg de potasio por porción.', 'Consulta siempre las advertencias del empaque.'] },
 ];
 
+// Curated product gallery: compact, varied imagery; no busy family-pack montage or ingredient poster.
 export const gallery = [
-  ...(productMedia.individual ? [{ ...productMedia.individual, caption: 'Caja individual · 21 sobres', label: 'Caja', presentation: 'caja' }] : []),
-  { src: 'assets/family.webp', alt: 'Fotografía oficial de seis cajas MultyDrink de 21 sobres cada una', caption: 'Pack familiar · 6 cajas · 126 sobres', label: 'Pack familiar', width: 567, height: 594 },
-  { src: 'assets/product.webp', alt: 'Imagen de marca MultyDrink con café, uvas, agave, ganoderma y té', caption: 'Universo botánico · imagen de marca, presentación de 126 porciones', label: 'Ingredientes', width: 873, height: 418 },
-  ...(productMedia.alternateBox ? [{ ...productMedia.alternateBox, caption: 'MultyDrink · vista del empaque', label: 'Otra vista', presentation: 'caja' }] : []),
-  ...(productMedia.sachet ? [{ ...productMedia.sachet, caption: 'Sobre individual · 10 g', label: 'Sobre', presentation: 'sobres' }] : []),
-  ...(productMedia.preparedDrink ? [{ ...productMedia.preparedDrink, caption: 'MultyDrink preparado', label: 'Preparación' }] : []),
-  ...(productMedia.composition ? [{ ...productMedia.composition, caption: 'Composición de ingredientes suministrada · imagen de marca', label: 'Composición', presentation: 'caja' }] : []),
+  ...(productMedia.individual ? [{ ...productMedia.individual, label: 'Caja individual MultyDrink', presentation: 'caja' }] : []),
+  ...(productMedia.alternateBox ? [{ ...productMedia.alternateBox, label: 'Vista alternativa de la caja', presentation: 'caja' }] : []),
+  ...['enfoque', 'energia', 'memoria', 'bienestar'].filter(key => productMedia.lifestyle[key]).map(key => ({
+    ...productMedia.lifestyle[key],
+    label: productMedia.lifestyle[key].alt,
+  })),
+  ...(productMedia.nutritionLabel ? [{ ...productMedia.nutritionLabel, label: 'Información nutricional' }] : []),
+  ...(productMedia.sachet ? [{ ...productMedia.sachet, label: 'Sobre individual', presentation: 'sobres' }] : []),
 ];
 
 export const departments = ['Amazonas', 'Antioquia', 'Arauca', 'Atlántico', 'Bogotá, D. C.', 'Bolívar', 'Boyacá', 'Caldas', 'Caquetá', 'Casanare', 'Cauca', 'Cesar', 'Chocó', 'Córdoba', 'Cundinamarca', 'Guainía', 'Guaviare', 'Huila', 'La Guajira', 'Magdalena', 'Meta', 'Nariño', 'Norte de Santander', 'Putumayo', 'Quindío', 'Risaralda', 'San Andrés, Providencia y Santa Catalina', 'Santander', 'Sucre', 'Tolima', 'Valle del Cauca', 'Vaupés', 'Vichada'];
