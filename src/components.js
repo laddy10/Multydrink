@@ -34,7 +34,7 @@ export function renderMomentPanels() {
   return moments.map((item, index) => `<div role="tabpanel" id="panel-${item.id}" aria-labelledby="tab-${item.id}" tabindex="0" ${index === 0 ? '' : 'hidden'}><h3>${item.title}</h3><p>${item.text}</p><ul class="benefits">${item.points.map(point => `<li>${icon('check')}<span>${point}</span></li>`).join('')}</ul><a class="button button-outline" href="#confianza">CONOCE LA INFORMACIÓN ${icon('arrow')}</a></div>`).join('');
 }
 export function renderGallery() {
-  return gallery.map((item, index) => `<button type="button" class="gallery-thumb" data-gallery="${index}" aria-label="Ver ${item.label}" aria-pressed="${index === 0}"><img src="${item.thumbnail || item.src}" width="80" height="80" alt="" loading="lazy"><span>${item.label}</span></button>`).join('');
+  return gallery.map((item, index) => `<button type="button" class="gallery-thumb" data-gallery="${index}" aria-label="Ver ${item.label}" aria-pressed="${index === 0}"><img src="${item.thumbnail || item.src}" width="64" height="64" alt="" loading="lazy"></button>`).join('');
 }
 export function renderIngredients() {
   return ingredients.map((item, index) => `<article class="ingredient-card"><div class="ingredient-image"><img src="assets/${item.image}.webp" alt="${item.name}" width="800" height="467" loading="lazy"><span>0${index + 1}</span></div><div class="ingredient-copy"><span class="eyebrow">${item.subtitle}</span><h3>${item.name}</h3><p>${item.text}</p></div></article>`).join('');
