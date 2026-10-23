@@ -1879,3 +1879,21 @@ existing controls and forms stay intact. */
     object-fit: contain;
   }
 }
+
+/* Reference-scaled product title: compact hierarchy like Focus's first viewport. */
+@media (min-width: 801px) {
+  #producto .product-info h1 {
+    font-size: clamp(29px, 2.3vw, 35px);
+    line-height: 1.16;
+    letter-spacing: -0.7px;
+    margin: 3px 0 7px;
+  }
+  #producto .product-info h1 > span {
+    font-size: 9px;
+    margin-top: 3px;
+  }
+  #producto .product-headline {
+    font-size: clamp(16px, 1.3vw, 20px);
+    line-height: 1.3;
+  }
+}
