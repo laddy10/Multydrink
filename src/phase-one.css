@@ -1697,3 +1697,88 @@ existing controls and forms stay intact. */
     font-size:9px
   }
 }
+
+
+/* Hero fidelity pass: product gallery stays visual; commercial hierarchy stays on the right.
+   These overrides intentionally retain existing JS selectors, media assets and purchase logic. */
+@media (min-width: 801px) {
+  #producto.product-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(34px, 4.2vw, 70px);
+    padding-top: 14px;
+  }
+}
+#producto .product-visual { min-width: 0; }
+#producto .gallery-stage {
+  background: #0a0b0a;
+  border: 0;
+  border-radius: 0;
+  aspect-ratio: 1 / 0.98;
+}
+#producto .gallery-stage > img {
+  width: 84%;
+  height: 86%;
+  object-fit: contain;
+  filter: none;
+}
+#producto .gallery-stage.is-botanical > img { width: 88%; height: 83%; }
+#producto .image-badge { display: none; }
+#producto .gallery-controls { bottom: 12px; }
+#producto .gallery-controls button {
+  background: #171a16;
+  border-color: #343a30;
+}
+#producto .gallery-thumbs {
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 3px 1px 10px;
+  gap: 8px;
+  scrollbar-width: thin;
+}
+#producto .gallery-thumb {
+  flex: 0 0 70px;
+  padding: 5px;
+  border-radius: 3px;
+  background: #10120f;
+}
+#producto .gallery-thumb img { width: 58px; height: 57px; }
+#producto .gallery-thumb span { font-size: 8px; line-height: 1.4; }
+#producto .gallery-caption { color: #9daca0; }
+#producto .visual-footnote { margin-top: 12px; }
+#producto .product-info h1 {
+  font-size: clamp(38px, 3.35vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -1.2px;
+  margin: 10px 0 12px;
+  font-weight: 700;
+}
+#producto .product-info h1 > span {
+  font-size: 10px;
+  line-height: 1.7;
+  margin-top: 8px;
+  letter-spacing: 3.4px;
+}
+#producto .product-headline {
+  color: #b9da7a;
+  font-size: clamp(17px, 1.65vw, 22px);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -.2px;
+  max-width: 580px;
+}
+#producto .product-description {
+  color: #c7c9bf;
+  line-height: 1.7;
+  margin-top: 14px;
+}
+#producto .benefits strong { color: #fff; }
+#producto .benefits .icon { color: #b9da7a; }
+#producto .science-note { background: #151a12; }
+#producto .mini-trust .icon { color: #d6d7d1; }
+@media(max-width: 800px) {
+  #producto .product-info h1 { font-size: clamp(34px, 7vw, 44px); }
+  #producto .product-headline { font-size: 18px; }
+  #producto .gallery-stage { aspect-ratio: 1 / 1; }
+  #producto .gallery-thumbs { justify-content: flex-start; }
+}
