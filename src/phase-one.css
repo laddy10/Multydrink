@@ -1982,3 +1982,18 @@ existing controls and forms stay intact. */
     max-height: none;
   }
 }
+
+/* Hero decision pass: purchase choices reach the first viewport. Later in the
+   cascade than the earlier hero layers, so it wins without touching them. */
+#producto .product-info h1 { margin: 6px 0 8px; }
+#producto .product-description { font-size: 16px; line-height: 1.55; margin-top: 10px; max-width: 54ch; }
+#producto .benefits { margin: 14px 0 0; }
+#producto .benefits li { font-size: 14px; line-height: 1.5; margin-bottom: 8px; }
+#producto .registration { margin: 14px 0 0; font-size: 13px; line-height: 1.4; }
+#producto .registration a { color: #b9da7a; font-weight: 600; }
+#producto .selection-heading { margin-top: 18px; }
+#producto .science-note { margin-top: 18px; }
+@media (max-width: 800px) {
+  #producto .product-description { font-size: 15px; }
+  #producto .benefits li { font-size: 13px; }
+}
