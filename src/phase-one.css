@@ -1935,3 +1935,50 @@ existing controls and forms stay intact. */
 @media (min-width: 801px) and (max-width: 1100px) {
   #producto.product-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
 }
+
+/* Unified hero gallery frame: switching product/lifestyle media never changes
+   its height. Portrait assets are letterboxed (not cropped or stretched). */
+#producto .gallery-stage,
+#producto .gallery-stage.is-portrait,
+#producto .gallery-stage:not(.is-portrait) {
+  aspect-ratio: 1 / 1;
+  height: auto;
+  max-height: none;
+  overflow: hidden;
+}
+#producto .gallery-stage > img,
+#producto .gallery-stage.is-portrait > img,
+#producto .gallery-stage:not(.is-portrait) > img {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center center;
+}
+@media (min-width: 801px) {
+  #producto .gallery-stage,
+  #producto .gallery-stage.is-portrait,
+  #producto .gallery-stage:not(.is-portrait) {
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+  #producto .gallery-stage.is-portrait > img {
+    width: 100%;
+    height: 100%;
+  }
+  #producto .gallery-stage:not(.is-portrait) > img,
+  #producto .gallery-stage.is-botanical:not(.is-portrait) > img {
+    width: 66%;
+    height: 76%;
+  }
+}
+@media (max-width: 800px) {
+  #producto .gallery-stage.is-portrait {
+    aspect-ratio: 1 / 1;
+    max-height: none;
+  }
+}
