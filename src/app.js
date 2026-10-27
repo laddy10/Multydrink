@@ -36,6 +36,19 @@ export function initApp(doc = document, win = window, options = {}) {
   $('#comparacion').hidden = !$('#comparacion').children.length;
   bindComparison($('#comparacion'));
   bindIngredientCounter($('.ingredient-story'), win);
+  // Reveal the preparation steps in order when the section enters view.
+  // Keep all content visible if observers are unavailable or motion is reduced.
+  const ritualSteps = $('.preparation-steps');
+  if (ritualSteps && typeof win.IntersectionObserver === 'function' &&
+      !win.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    ritualSteps.classList.add('ritual-animate-ready');
+    const ritualObserver = new win.IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      ritualSteps.classList.add('ritual-is-visible');
+      ritualObserver.disconnect();
+    }, { threshold: 0.18 });
+    ritualObserver.observe(ritualSteps);
+  }
   $('#video-carousel').innerHTML = renderVideoCarousel(videoTestimonials);
   $('#video-testimonials').hidden = !$('#video-carousel').children.length;
   bindVideoCarousel($('#video-carousel'), videoTestimonials);
