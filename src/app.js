@@ -93,9 +93,8 @@ export function initApp(doc = document, win = window, options = {}) {
     $('#offer-less').disabled = quantity <= 1 || sending || confirmed;
     $('#offer-more').disabled = quantity >= commerce.maxQuantity || sending || confirmed;
     $('#offer-description').textContent = `${item.sachets} sobres`;
-    const individual = packages.find(pack => pack.id === 'individual');
     $('#offer-saving').hidden = item.id !== 'familiar';
-    $('#offer-saving').textContent = item.id === 'familiar' ? `AHORRA ${Math.round((1 - item.price / (individual.price * item.boxes)) * 100)}%` : '';
+    $('#offer-saving').textContent = item.id === 'familiar' ? `AHORRAS ${money(item.referencePrice - item.price)}` : '';
     $('#offer-total').textContent = `Total: COP ${money(totals.subtotal)}`;
     $('.purchase-offer').dataset.package = selected;
     $('#sticky-package').textContent = `${item.name} · ${item.sachets} sobres`;
