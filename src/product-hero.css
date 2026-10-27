@@ -13,6 +13,7 @@
   align-items: start;
 }
 .product-intro { grid-area: intro; min-width: 0; }
+.hero-stars { color: #F4BD38; font-size: 19px; letter-spacing: 4px; line-height: 1.2; margin-bottom: 7px; user-select: none; }
 .product-visual { grid-area: gallery; min-width: 0; }
 .product-info { grid-area: purchase; min-width: 0; }
 .product-accordions { grid-area: details; min-width: 0; }
