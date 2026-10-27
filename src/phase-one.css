@@ -529,6 +529,32 @@ existing controls and forms stay intact. */
 .nutrition-transcript summary { cursor:pointer; padding-block:14px; }
 .nutrition-transcript>p { margin-top:15px; }
 .nutrition-transcript .nutrition-sheet { margin-top:12px; }
+/* Nutrition: centered editorial composition with the authentic label only. */
+.nutrition-section .nutrition-layout { width:min(calc(100% - 80px),1080px); grid-template-columns:minmax(0,1fr) minmax(0,.92fr); gap:clamp(36px,5vw,76px); align-items:center; }
+.nutrition-content { width:min(100%,440px); margin-inline:auto; }
+.nutrition-content .eyebrow,.nutrition-content h2 { text-align:center; }
+.nutrition-content h2 { font-size:clamp(30px,3vw,42px); margin:12px 0 30px; }
+.nutrition-content .nutrition-tabs { justify-content:center; margin-bottom:30px; }
+.nutrition-content [role="tabpanel"] { width:min(100%,400px); margin-inline:auto; }
+.nutrition-content .benefits { gap:18px; }
+.nutrition-content .benefits li { display:flex; align-items:flex-start; gap:14px; font-size:15px; line-height:1.65; }
+.nutrition-content .benefits .icon { flex-shrink:0; width:22px; height:22px; margin-top:1px; }
+.nutrition-content .nutrition-registration { text-align:center; margin:27px 0 22px; }
+.nutrition-content > .button { display:flex; width:max-content; max-width:100%; margin-inline:auto; }
+.nutrition-section .nutrition-composition { max-width:430px; width:100%; min-width:0; justify-self:center; }
+.nutrition-label-figure { width:100%; margin:0; text-align:center; }
+.nutrition-label-figure > a { display:block; width:100%; }
+.nutrition-label-figure .real-nutrition-label { display:block; width:100%; height:auto; object-fit:contain; }
+.nutrition-label-figure figcaption { margin-top:10px; font-size:11px; line-height:1.6; }
+@media (max-width:800px) {
+  .nutrition-section .nutrition-layout { width:calc(100% - 36px); grid-template-columns:1fr; gap:32px; }
+  .nutrition-content { max-width:440px; }
+  .nutrition-section .nutrition-composition { max-width:390px; }
+}
+@media (max-width:390px) {
+  .nutrition-section .nutrition-layout { width:calc(100% - 28px); }
+  .nutrition-content .benefits li { font-size:13px; }
+}
 .preparation-section {
   text-align:center;
   background:#0b0e09
