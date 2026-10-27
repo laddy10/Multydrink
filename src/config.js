@@ -27,6 +27,16 @@ export const commerce = Object.freeze({
 // Quotes below are short verbatim fragments from the supplied transcripts.
 export const testimonials = Object.freeze([
   Object.freeze({
+    id: 'manuela',
+    name: 'Manuela',
+    location: 'Experiencia compartida',
+    comment: 'Yo me sentí en esa reunión como tan chévere, como con energía, con aliento.',
+    topic: 'Cansancio y ánimo',
+    sourceNote: 'Fragmento de testimonio en video · 05:01–05:09',
+    transcriptProvided: true,
+    verifiedPurchase: false,
+  }),
+  Object.freeze({
     id: 'juan-alcantara',
     name: 'Juan Alcántara Medina',
     location: 'Santo Domingo, República Dominicana',
@@ -43,16 +53,6 @@ export const testimonials = Object.freeze([
     comment: 'Estoy más activo.',
     topic: 'Energía',
     sourceNote: 'Fragmento de testimonio en video · 01:16–01:24',
-    transcriptProvided: true,
-    verifiedPurchase: false,
-  }),
-  Object.freeze({
-    id: 'manuela',
-    name: 'Manuela',
-    location: 'Experiencia compartida',
-    comment: 'Yo me sentí en esa reunión como tan chévere, como con energía, con aliento.',
-    topic: 'Cansancio y ánimo',
-    sourceNote: 'Fragmento de testimonio en video · 05:01–05:09',
     transcriptProvided: true,
     verifiedPurchase: false,
   }),
