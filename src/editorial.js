@@ -18,7 +18,7 @@ export function renderNutrition() {
 }
 export function renderFinalOffers() {
   return packages.map(item => {
-    const photo = item.id === 'individual' ? productMedia.individual : { src: 'assets/family.webp', alt: 'Pack familiar de seis cajas MultyDrink', width: 567, height: 594 };
+    const photo = item.id === 'individual' ? productMedia.individual : productMedia.family;
     return `<article class="final-offer"><div class="offer-photo ${photo ? '' : 'without-photo'}">${photo ? `<img ${imageAttributes(photo, '(max-width: 560px) 85vw, 420px')} loading="lazy">` : `<span class="offer-count">${item.sachets}<small>SOBRES / ${item.boxes} CAJA</small></span>`}</div><div class="offer-copy"><h3>${item.name}</h3><p>${item.boxes} ${item.boxes === 1 ? 'caja' : 'cajas'} · ${item.sachets} sobres · envío incluido</p><div class="offer-price"><strong>${money(item.price)}</strong><del>${money(item.referencePrice)}</del></div><p class="offer-saving">Ahorras ${money(item.referencePrice - item.price)}</p><a href="#pedido" class="button button-black" data-order-package="${item.id}">ELEGIR ${item.id === 'individual' ? 'CAJA INDIVIDUAL' : 'PACK FAMILIAR'} ${icon('arrow')}</a></div></article>`;
   }).join('');
 }
@@ -54,18 +54,55 @@ export function bindTabs(root, { vertical = false, onSelect = () => {} } = {}) {
 }
 
 const imageMarkup = (item, cls = '', sizes = '100vw') => `<img class="${cls}" ${imageAttributes(item, sizes)} loading="lazy">`;
+export function bindIngredientCounter(root, win = root?.ownerDocument.defaultView) {
+  const number = root?.querySelector('[data-ingredient-count]');
+  if (!number || root.dataset.ingredientCounterBound) return;
+  root.dataset.ingredientCounterBound = 'true';
+  const motion = win.matchMedia('(prefers-reduced-motion: reduce)');
+  let observer, timer, started = false;
+  const finish = () => {
+    started = true;
+    win.clearTimeout(timer);
+    observer?.disconnect();
+    number.textContent = '5';
+    motion.removeEventListener?.('change', onMotionChange);
+  };
+  const onMotionChange = () => { if (motion.matches) finish(); };
+  if (motion.matches || !win.IntersectionObserver) { finish(); return; }
+  // Only the visual digit changes; a separate, static 5 remains accessible.
+  number.textContent = '1';
+  observer = new win.IntersectionObserver(entries => {
+    if (started || !entries.some(entry => entry.isIntersecting)) return;
+    started = true;
+    observer.disconnect();
+    let value = 1;
+    const advance = () => {
+      number.textContent = String(++value);
+      if (value === 5) finish();
+      else timer = win.setTimeout(advance, 220);
+    };
+    timer = win.setTimeout(advance, 220);
+  }, { threshold: .35 });
+  observer.observe(number);
+  motion.addEventListener?.('change', onMotionChange);
+}
+
 export function renderComparison(pair) {
   if (!pair?.first?.src || !pair?.second?.src) return '';
-  return `<div class="comparison-stage" style="--position:50%">${imageMarkup(pair.second, 'comparison-base')}<div class="comparison-overlay">${imageMarkup(pair.first)}</div><div class="comparison-labels"><span>${esc(pair.firstLabel)}</span><span>${esc(pair.secondLabel)}</span></div><div class="comparison-divider" aria-hidden="true"><span>‹ ›</span></div><label class="sr-only" for="comparison-range">Comparar las dos escenas: mueve el divisor</label><input id="comparison-range" type="range" min="0" max="100" value="50" step="1" aria-valuetext="50% de la primera escena" aria-describedby="comparison-help"></div><p id="comparison-help" class="comparison-help">Arrastra el divisor o usa las flechas del teclado. Dos momentos cotidianos; no representan un resultado garantizado del producto.</p>`;
+  return `<div class="comparison-labels"><span>${esc(pair.firstLabel)}</span><span>${esc(pair.secondLabel)}</span></div><div class="comparison-stage" style="--position:50%">${imageMarkup(pair.second, 'comparison-base')}<div class="comparison-overlay">${imageMarkup(pair.first)}</div><div class="comparison-divider" aria-hidden="true"><span>‹ ›</span></div><label class="sr-only" for="comparison-range">Comparar las dos escenas: mueve el divisor</label><input id="comparison-range" type="range" min="0" max="100" value="50" step="1" aria-valuetext="50% de la primera escena" aria-describedby="comparison-help"></div><p id="comparison-help" class="sr-only">Arrastra el divisor o usa las flechas del teclado. Dos momentos cotidianos; no representan un resultado garantizado del producto.</p>`;
 }
 export function bindComparison(root) {
   const stage = root.querySelector('.comparison-stage');
   if (!stage) return;
   const input = stage.querySelector('input');
+  const labels = root.querySelectorAll('.comparison-labels span');
   const update = value => {
     const position = Math.max(0, Math.min(100, Math.round(Number(value))));
     input.value = String(position); stage.style.setProperty('--position', position + '%');
     input.setAttribute('aria-valuetext', `${position}% de la primera escena`);
+    // A label must not describe the opposite scene when its own pane closes.
+    if (labels[0]) labels[0].style.visibility = position < 30 ? 'hidden' : 'visible';
+    if (labels[1]) labels[1].style.visibility = position > 70 ? 'hidden' : 'visible';
   };
   input.addEventListener('input', () => update(input.value));
   let pointer = null;

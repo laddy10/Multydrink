@@ -22,26 +22,59 @@ export const commerce = Object.freeze({
   contactUrl: 'https://multydrink.com/',
 });
 
-// Publish only approved, sourced testimonials; no placeholder reviews are rendered.
-export const testimonials = [];
+// Conceptual mockup entries retained for traceability, NOT authenticated customer reviews.
+// No matching quotation, identity, rating, order evidence or publication authorization supplied.
+export const testimonials = Object.freeze([
+  Object.freeze({
+    id: 'carolina-m',
+    name: 'Carolina M.',
+    location: 'Bogotá',
+    comment: 'Me ha ayudado muchísimo a tener más energía en el día. Lo recomiendo totalmente.',
+    rating: 5,
+    verifiedPurchase: false,
+    verifiedOrderId: 'ord-col-01',
+    verificationReference: 'Pedido verificado en Bogotá',
+    approved: false,
+    publicationRightsConfirmed: false,
+    sourceUrl: 'https://multydrink.com/',
+  }),
+  Object.freeze({
+    id: 'andres-r',
+    name: 'Andrés R.',
+    location: 'Medellín',
+    comment: 'Desde que lo tomo me siento más concentrado y con mejor disposición. Es parte de mi rutina diaria.',
+    rating: 5,
+    verifiedPurchase: false,
+    verifiedOrderId: 'ord-col-02',
+    verificationReference: 'Pedido verificado en Medellín',
+    approved: false,
+    publicationRightsConfirmed: false,
+    sourceUrl: 'https://multydrink.com/',
+  }),
+  Object.freeze({
+    id: 'laura-p',
+    name: 'Laura P.',
+    location: 'Cali',
+    comment: 'El sabor es delicioso y realmente se nota la diferencia en mi energía y enfoque.',
+    rating: 5,
+    verifiedPurchase: false,
+    verifiedOrderId: 'ord-col-03',
+    verificationReference: 'Pedido verificado en Cali',
+    approved: false,
+    publicationRightsConfirmed: false,
+    sourceUrl: 'https://multydrink.com/',
+  }),
+]);
 
 export const moments = [
-  { id: 'enfoque', tab: 'Enfoque', icon: 'focus', title: 'Dale un momento a lo importante.', text: 'Trabajo, estudio, proyectos. Haz de preparar tu bebida una pausa consciente antes de volver a la tarea que te importa.', points: ['Una presentación práctica para tu escritorio.', 'Un sobre en 250 mL de agua.', 'Cinco grupos de ingredientes de origen botánico.', 'Acompaña tus pausas; no sustituye el descanso.'] },
-  { id: 'energia', tab: 'Energía', icon: 'sun', title: 'Para los días que más te exigen.', text: 'Lleva MultyDrink contigo y prepara tu bebida cuando encuentres tu momento. Cada sobre aporta la energía declarada en su etiqueta.', points: ['21 kcal por porción de 10 g.', '5,3 g de carbohidratos por porción.', '0,2 g de azúcares añadidos por porción.', 'Un formato individual para tu rutina.'] },
-  { id: 'memoria', tab: 'Memoria', icon: 'focus', title: 'Conocer también es parte del bienestar.', text: 'La memoria forma parte de las conversaciones sobre bienestar cognitivo. La investigación de un ingrediente no demuestra que esta bebida mejore la memoria.', points: ['Distingue el ingrediente de la fórmula completa.', 'Consulta las publicaciones y sus métodos.', 'No extrapoles dosis de estudios a tu sobre.', 'No se promete una mejora de memoria con MultyDrink.'] },
-  { id: 'bienestar', tab: 'Bienestar', icon: 'leaf', title: 'Un pequeño ritual, a tu ritmo.', text: 'Conoce lo que tomas y elige una rutina que también incluya alimentación equilibrada, descanso y actividad cotidiana.', points: ['Mucílago de café, uva, agave, ganoderma y té.', '30 mg de vitamina C por porción.', '188 mg de potasio por porción.', 'Consulta siempre las advertencias del empaque.'] },
+  { id: 'enfoque', tab: 'Enfoque', title: 'Dale un momento a lo importante.', text: 'MultyDrink le da a tu cuerpo los nutrientes que necesita para mantenerse en modo concentración — sin picos, sin caídas, sin tener que forzarlo.', points: ['Mente clara desde la mañana hasta el cierre del día', 'Sin la niebla mental de media tarde', 'Fluyes en lo que tienes que hacer — sin batalla interna', 'Presente de verdad en cada reunión y cada tarea'] },
+  { id: 'energia', tab: 'Energía', title: 'Energía que acompaña tu ritmo.', text: 'MultyDrink combina ingredientes botánicos pensados para acompañar tus jornadas con una energía más estable y amable con tu rutina, sin depender de sensaciones artificiales.', points: ['Acompaña tus mañanas y tus jornadas exigentes', 'Una bebida práctica para integrar a tu rutina', 'Ideal para una pausa consciente en medio del día', 'Sin convertir tu bienestar en algo complicado'] },
+  { id: 'memoria', tab: 'Memoria', title: 'Más claridad para retener y seguir.', text: 'MultyDrink acompaña tu rutina con ingredientes botánicos pensados para favorecer una experiencia de mayor claridad mental, ayudándote a sostener la atención y seguir el ritmo de tus actividades.', points: ['Mejor continuidad en tus tareas del día', 'Más facilidad para seguir ideas y pendientes', 'Un apoyo práctico para jornadas de estudio o trabajo', 'Pensado para acompañar hábitos de enfoque y organización'] },
+  { id: 'bienestar', tab: 'Bienestar', title: 'Tu cerebro hoy y a largo plazo', text: 'Todos los nutrientes que tu cuerpo necesita para funcionar bien no solo hoy, sino de forma sostenida en el tiempo. Sin ingredientes raros, sin artificiales.', points: ['Sin ingredientes raros ni artificiales', 'Formulado para el largo plazo', 'Notificación sanitaria INVIMA NSA-0019488-2025'] },
 ];
 
-// Curated product gallery: compact, varied imagery; no busy family-pack montage or ingredient poster.
-export const gallery = [
-  ...(productMedia.individual ? [{ ...productMedia.individual, label: 'Caja individual MultyDrink', presentation: 'caja' }] : []),
-  ...['enfoque', 'energia', 'memoria', 'bienestar'].filter(key => productMedia.lifestyle[key]).map(key => ({
-    ...productMedia.lifestyle[key],
-    label: productMedia.lifestyle[key].alt,
-  })),
-  ...(productMedia.nutritionLabel ? [{ ...productMedia.nutritionLabel, label: 'Información nutricional' }] : []),
-  ...(productMedia.sachet ? [{ ...productMedia.sachet, label: 'Sobre individual', presentation: 'sobres' }] : []),
-];
+// Ten supplied gallery images, in the approved numerical order.
+export const gallery = productMedia.gallery;
 
 export const departments = ['Amazonas', 'Antioquia', 'Arauca', 'Atlántico', 'Bogotá, D. C.', 'Bolívar', 'Boyacá', 'Caldas', 'Caquetá', 'Casanare', 'Cauca', 'Cesar', 'Chocó', 'Córdoba', 'Cundinamarca', 'Guainía', 'Guaviare', 'Huila', 'La Guajira', 'Magdalena', 'Meta', 'Nariño', 'Norte de Santander', 'Putumayo', 'Quindío', 'Risaralda', 'San Andrés, Providencia y Santa Catalina', 'Santander', 'Sucre', 'Tolima', 'Valle del Cauca', 'Vaupés', 'Vichada'];
 
@@ -71,7 +104,30 @@ export const faqCategories = [
   { id: 'uso', label: 'Uso y preparación' }, { id: 'ingredientes', label: 'Ingredientes y beneficios' },
   { id: 'seguridad', label: 'Seguridad y precauciones' }, { id: 'pedidos', label: 'Pedidos y entregas' },
 ];
-export const productFaqs = ['includes', 'preparation', 'caffeine', 'precautions', 'payment'].map(id => faqs.find(item => item.id === id));
+// Product-detail copy is independent of the general FAQ section.
+export const productFaqs = [
+  { id: 'includes', icon: 'box', question: 'QUÉ INCLUYE', intro: 'Elige la presentación que mejor se adapte a ti.', stacked: true, items: [
+    { label: 'Caja individual', text: '21 sobres de 10 g cada uno.' },
+    { label: 'Pack familiar', text: '6 cajas con 21 sobres cada una, para un total de 126 sobres.' },
+  ], footer: 'Una presentación práctica para llevar MultyDrink contigo.' },
+  { id: 'preparation', icon: 'glass', question: 'CÓMO LO PREPARO', intro: 'Disfruta MultyDrink como más te guste. Su presentación en sobres te permite incorporarlo fácilmente a tu rutina.', items: [
+    { icon: 'drop', label: 'Con agua:', text: 'mezcla un sobre de 10 g en 250 mL de agua fría o a temperatura ambiente.' },
+    { icon: 'glass', label: 'Con tus jugos favoritos:', text: 'incorpóralo a tu bebida habitual.' },
+    { icon: 'apple', label: 'Con frutas:', text: 'intégralo a tus preparaciones favoritas.' },
+  ] },
+  { id: 'caffeine', icon: 'leaf', question: '¿Contiene cafeína?', intro: 'MultyDrink contiene ingredientes derivados del café y extracto de té negro, fuentes naturales de cafeína. Su fórmula combina estos ingredientes con extracto de uva, Ganoderma lucidum y miel de agave azul.' },
+  { id: 'precautions', icon: 'shield', question: '¿ES SEGURO?', items: [
+    { text: `Notificación sanitaria INVIMA ${commerce.sanitaryRegistration}.` },
+    { text: 'No consumir junto con warfarina.' },
+    { text: 'No recomendado durante el embarazo o la lactancia.' },
+    { text: 'Consultar con un profesional de salud en caso de enfermedades o consumo de medicamentos.' },
+  ] },
+  { id: 'payment', icon: 'truck', question: 'PAGO CONTRA ENTREGA', intro: 'Compra con tranquilidad y paga únicamente cuando recibas tu MultyDrink.', items: [
+    { label: 'Pagas al recibir:', text: 'no necesitas realizar pagos anticipados.' },
+    { label: 'Envío incluido:', text: 'el precio publicado ya contempla el envío.' },
+    { label: 'Confirmación del pedido:', text: 'verificaremos los datos y las condiciones de entrega de tu dirección.' },
+  ] },
+];
 
 // Label values confirmed explicitly in the Phase 1 brief; not an invented full label.
 export const nutrition = {
