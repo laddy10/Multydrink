@@ -603,6 +603,57 @@ existing controls and forms stay intact. */
   max-width:300px;
   margin-inline:auto
 }
+/* Ritual: sequential reveal — first step, connector, second step, connector, third step. */
+.preparation-steps.ritual-animate-ready::before { opacity:.28; }
+.preparation-steps.ritual-animate-ready::after {
+  content:"";
+  position:absolute;
+  z-index:0;
+  top:28px;
+  left:16%;
+  right:16%;
+  height:2px;
+  background:var(--accent);
+  transform:scaleX(0);
+  transform-origin:left center;
+}
+.preparation-steps.ritual-animate-ready li { opacity:0; transform:translateY(12px); }
+.preparation-steps.ritual-is-visible li { animation:ritual-step-arrive .5s ease-out forwards; }
+.preparation-steps.ritual-is-visible li:nth-child(1) { animation-delay:0s; }
+.preparation-steps.ritual-is-visible li:nth-child(2) { animation-delay:1.25s; }
+.preparation-steps.ritual-is-visible li:nth-child(3) { animation-delay:2.5s; }
+.preparation-steps.ritual-is-visible::after { animation:ritual-connector 3.1s linear forwards; }
+@keyframes ritual-step-arrive {
+  from { opacity:0; transform:translateY(12px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes ritual-connector {
+  0%, 16% { transform:scaleX(0); }
+  39%, 51% { transform:scaleX(.5); }
+  83%, 100% { transform:scaleX(1); }
+}
+@media (max-width:700px) {
+  .preparation-steps.ritual-animate-ready::after {
+    top:0;
+    bottom:0;
+    left:23px;
+    right:auto;
+    width:2px;
+    height:auto;
+    transform:scaleY(0);
+    transform-origin:center top;
+  }
+  .preparation-steps.ritual-is-visible::after { animation-name:ritual-connector-vertical; }
+  @keyframes ritual-connector-vertical {
+    0%, 16% { transform:scaleY(0); }
+    39%, 51% { transform:scaleY(.5); }
+    83%, 100% { transform:scaleY(1); }
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  .preparation-steps.ritual-animate-ready li { opacity:1; transform:none; animation:none; }
+  .preparation-steps.ritual-animate-ready::after { display:none; }
+}
 .carousel-heading {
   display:flex;
   justify-content:space-between;
