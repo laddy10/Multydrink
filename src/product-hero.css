@@ -109,7 +109,9 @@
 .purchase-review-track:focus-visible { outline-offset:3px; }
 .purchase-review-card { flex:0 0 100%; min-width:0; margin:0; scroll-snap-align:start; }
 .review-stars { color:#f6c44a; font-size:14px; margin-bottom:8px; }
+.review-topic { display:inline-block; margin-bottom:8px; color:var(--accent); font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
 .review-quote { color:#d8dfd0; font-size:14px; line-height:1.65; margin:0 0 12px; }
+.review-source-note { color:var(--hero-muted); opacity:.8; font-size:10px; line-height:1.5; margin:9px 0 0; }
 .review-author { display:flex; flex-wrap:wrap; gap:3px 10px; align-items:baseline; font-size:13px; line-height:1.5; color:var(--hero-muted); }
 .review-author strong { font-weight:600; color:var(--text); }
 .review-author small { font-size:12px; }
