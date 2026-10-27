@@ -603,8 +603,18 @@ existing controls and forms stay intact. */
   max-width:300px;
   margin-inline:auto
 }
+/* Ritual: filled brand-green number discs mask the connecting line. */
+.preparation-steps li { z-index:1; }
+.preparation-steps li > span {
+  z-index:2;
+  background:#86A94C;
+  border:2px solid #B0CF79;
+  color:#FFFFFF;
+  box-shadow:0 0 0 9px #17220F;
+}
+.preparation-steps::before { background:#34462C; }
 /* Ritual: sequential reveal — first step, connector, second step, connector, third step. */
-.preparation-steps.ritual-animate-ready::before { opacity:.28; }
+.preparation-steps.ritual-animate-ready::before { opacity:.45; }
 .preparation-steps.ritual-animate-ready::after {
   content:"";
   position:absolute;
