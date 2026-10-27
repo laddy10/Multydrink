@@ -141,7 +141,7 @@ export const ingredientGroups = [
   { title: 'El toque del agave azul.', name: 'Sirope de agave azul', images: ['agave'], text: 'Completa los cinco grupos de ingredientes. La etiqueta declara 0,2 g de azúcares añadidos por porción de 10 g.' },
 ];
 export const research = [
-  { year: '2000', label: 'Composición del mucílago', source: 'Journal of Food Science', url: 'https://ift.onlinelibrary.wiley.com/doi/abs/10.1111/j.1365-2621.2000.tb10602.x', description: 'Caracterización de polisacáridos del mucílago de café. Investigación sobre materia prima, no sobre MultyDrink.' },
-  { year: '2001', label: 'Compuestos del té negro', source: 'The Journal of Nutrition', url: 'https://pubmed.ncbi.nlm.nih.gov/11533262/', description: 'Evaluación de teaflavinas en un modelo de oxidación de laboratorio. No es un ensayo de consumo de MultyDrink.' },
-  { year: '2023', label: 'Procesamiento del mucílago', source: 'Food and Humanity', url: 'https://www.sciencedirect.com/science/article/pii/S2949824423000848', description: 'Estudio de clarificación y composición del mucílago como materia prima. No mide energía ni concentración en personas.' },
+  { year: '2013', label: 'Polifenoles de la uva', source: 'Ensayo clínico · Cardiovascular Drugs and Therapy', url: 'https://pubmed.ncbi.nlm.nih.gov/23224687/', description: 'En 75 personas con enfermedad coronaria, un extracto de uva enriquecido con resveratrol se estudió por sus efectos sobre biomarcadores inflamatorios. No se evaluó MultyDrink.' },
+  { year: '2014', label: 'Té negro', source: 'Metaanálisis · PLOS ONE', url: 'https://pubmed.ncbi.nlm.nih.gov/25079225/', description: 'Un análisis de 11 estudios controlados con 378 participantes observó pequeñas reducciones promedio de presión arterial al consumir té negro. No se evaluó esta fórmula.' },
+  { year: '2021', label: 'Pulpa de café', source: 'Estudio de laboratorio · Food Chemistry', url: 'https://pubmed.ncbi.nlm.nih.gov/33516995/', description: 'Durante una digestión simulada, un extracto de pulpa de café mostró disminución de algunos compuestos bioactivos y de su actividad antioxidante. No fue un ensayo en personas.' },
 ];
