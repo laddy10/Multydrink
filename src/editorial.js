@@ -8,7 +8,7 @@ export function renderEditorialIngredients() {
   return ingredientGroups.map((item, index) => `<article class="editorial-ingredient"><div class="editorial-image ${item.images.length > 1 ? 'paired-images' : ''}">${item.images.map(name => `<img src="assets/${name}.webp" alt="${esc(name === 'tea' ? 'Té negro' : item.name)}" width="800" height="467" loading="lazy">`).join('')}</div><span class="editorial-index">0${index + 1} / ${esc(item.name)}</span><h3>${esc(item.title)}</h3><p>${esc(item.text)}</p></article>`).join('');
 }
 export function renderResearch() {
-  return research.map(item => `<article><strong class="research-year">${item.year}</strong><h3>${esc(item.label)}</h3><p>${esc(item.description)}</p><a href="${item.url}" target="_blank" rel="noopener noreferrer">${esc(item.source)} ↗</a></article>`).join('');
+  return research.map(item => `<article><strong class="research-year">${esc(item.year)}</strong><h3>${esc(item.label)}</h3><p>${esc(item.description)}</p><a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="Consultar publicación: ${esc(item.label)}">${esc(item.source)} ↗</a></article>`).join('');
 }
 export function renderNutrition() {
   const transcript = `<div class="nutrition-sheet"><span>DATOS DECLARADOS EN EL EMPAQUE</span><h3>Información<br>por porción</h3><p>${nutrition.servings} porciones por caja · 1 sobre (${nutrition.servingGrams} g)</p><table><caption class="sr-only">Datos nutricionales confirmados por porción de 10 gramos</caption><tbody>${nutrition.rows.map(([label, value]) => `<tr><th scope="row">${label}</th><td>${value}</td></tr>`).join('')}</tbody></table><p class="nutrition-note">Selección de datos de la etiqueta. Consulta tu empaque para la información nutricional completa.</p></div>`;
