@@ -26,7 +26,7 @@ export function renderFaqCategories() {
   return faqCategories.map((item, index) => `<button type="button" id="faq-tab-${item.id}" role="tab" aria-selected="${index === 0}" aria-controls="faq-panel-${item.id}" tabindex="${index === 0 ? '0' : '-1'}">${item.label}<span aria-hidden="true">↗</span></button>`).join('');
 }
 export function renderFaqPanels() {
-  return faqCategories.map((item, index) => `<div id="faq-panel-${item.id}" role="tabpanel" tabindex="0" aria-labelledby="faq-tab-${item.id}" ${index ? 'hidden' : ''}>${renderFaqs(faqs.filter(faq => faq.category === item.id))}</div>`).join('');
+  return faqCategories.map((item, index) => `<div id="faq-panel-${item.id}" role="tabpanel" tabindex="0" aria-labelledby="faq-tab-${item.id}" ${index ? 'hidden' : ''}><p class="faq-active-category">${esc(item.label)}</p>${renderFaqs(faqs.filter(faq => faq.category === item.id))}</div>`).join('');
 }
 export function bindTabs(root, { vertical = false, onSelect = () => {} } = {}) {
   const tabs = [...root.querySelectorAll('[role="tab"]')];
