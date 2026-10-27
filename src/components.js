@@ -59,18 +59,20 @@ export function renderField({ name, label, autocomplete, placeholder = '', type 
 }
 export const renderDepartments = () => departments.map(item => `<option value="${item}">${item}</option>`).join('');
 export function renderTestimonials(reviews) {
-  const approved = reviews.filter(item => item.approved === true && item.publicationRightsConfirmed === true && /^https?:\/\//.test(item.sourceUrl || '') && item.name && item.comment);
-  if (!approved.length) return '';
+  // Only user-supplied transcript excerpts; no fabricated stars, ratings or verification badges.
+  const excerpts = reviews.filter(item => item.transcriptProvided === true && item.name && item.comment);
+  if (!excerpts.length) return '';
   return `<section class="purchase-reviews" aria-labelledby="reviews-title" aria-roledescription="carrusel">
-    <div class="purchase-reviews-heading"><h2 id="reviews-title">Lo que dicen nuestros clientes</h2><div class="review-controls"><button type="button" data-review-prev aria-label="Testimonio anterior">‹</button><button type="button" data-review-next aria-label="Siguiente testimonio">›</button></div></div>
-    <div class="purchase-review-track" tabindex="0" aria-label="Testimonios; usa las flechas para navegar">
-      ${approved.map((item, index) => `<figure class="purchase-review-card" role="group" aria-roledescription="diapositiva" aria-label="${index + 1} de ${approved.length}">
-        ${Number.isInteger(item.rating) && item.rating >= 1 && item.rating <= 5 ? `<div class="review-stars" aria-label="${item.rating} de 5 estrellas">${'★'.repeat(item.rating)}</div>` : ''}
+    <div class="purchase-reviews-heading"><h2 id="reviews-title">Experiencias compartidas</h2><div class="review-controls"><button type="button" data-review-prev aria-label="Testimonio anterior">‹</button><button type="button" data-review-next aria-label="Siguiente testimonio">›</button></div></div>
+    <div class="purchase-review-track" tabindex="0" aria-label="Experiencias personales; usa las flechas para navegar">
+      ${excerpts.map((item, index) => `<figure class="purchase-review-card" role="group" aria-roledescription="diapositiva" aria-label="${index + 1} de ${excerpts.length}">
+        <span class="review-topic">${escapeHTML(item.topic || 'Experiencia personal')}</span>
         <blockquote class="review-quote">“${escapeHTML(item.comment)}”</blockquote>
-        <figcaption class="review-author"><strong>${escapeHTML(item.name)}</strong>${item.location ? `<span>${escapeHTML(item.location)}</span>` : ''}${item.verifiedPurchase === true && item.verifiedOrderId && item.verificationReference ? '<small>Compra verificada</small>' : ''}<a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">Ver fuente</a></figcaption>
+        <figcaption class="review-author"><strong>${escapeHTML(item.name)}</strong>${item.location ? `<span>${escapeHTML(item.location)}</span>` : ''}</figcaption>
+        <p class="review-source-note">${escapeHTML(item.sourceNote || 'Testimonio personal')}</p>
       </figure>`).join('')}
     </div>
-    <div class="review-dots" aria-label="Elegir testimonio">${approved.map((_, index) => `<button type="button" data-review-index="${index}" aria-label="Ver testimonio ${index + 1}" aria-pressed="${index === 0}"></button>`).join('')}</div>
+    <div class="review-dots" aria-label="Elegir testimonio">${excerpts.map((_, index) => `<button type="button" data-review-index="${index}" aria-label="Ver testimonio ${index + 1}" aria-pressed="${index === 0}"></button>`).join('')}</div>
     <p class="sr-only" data-review-status aria-live="polite"></p>
   </section>`;
 }
