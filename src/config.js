@@ -22,47 +22,39 @@ export const commerce = Object.freeze({
   contactUrl: 'https://multydrink.com/',
 });
 
-// Conceptual mockup entries retained for traceability, NOT authenticated customer reviews.
-// No matching quotation, identity, rating, order evidence or publication authorization supplied.
+// User-supplied transcript excerpts, not purchase-verified reviews.
+// Source videos and publication consent must be checked before public deployment.
+// Quotes below are short verbatim fragments from the supplied transcripts.
 export const testimonials = Object.freeze([
   Object.freeze({
-    id: 'carolina-m',
-    name: 'Carolina M.',
-    location: 'Bogotá',
-    comment: 'Me ha ayudado muchísimo a tener más energía en el día. Lo recomiendo totalmente.',
-    rating: 5,
+    id: 'juan-alcantara',
+    name: 'Juan Alcántara Medina',
+    location: 'Santo Domingo, República Dominicana',
+    comment: 'Me siento más vigoroso.',
+    topic: 'Vitalidad',
+    sourceNote: 'Fragmento de testimonio en video · 00:54',
+    transcriptProvided: true,
     verifiedPurchase: false,
-    verifiedOrderId: 'ord-col-01',
-    verificationReference: 'Pedido verificado en Bogotá',
-    approved: false,
-    publicationRightsConfirmed: false,
-    sourceUrl: 'https://multydrink.com/',
   }),
   Object.freeze({
-    id: 'andres-r',
-    name: 'Andrés R.',
-    location: 'Medellín',
-    comment: 'Desde que lo tomo me siento más concentrado y con mejor disposición. Es parte de mi rutina diaria.',
-    rating: 5,
+    id: 'kim-cuervo',
+    name: 'Kim Cuervo',
+    location: 'Practicante de jiu-jitsu',
+    comment: 'Estoy más activo.',
+    topic: 'Energía',
+    sourceNote: 'Fragmento de testimonio en video · 01:16–01:24',
+    transcriptProvided: true,
     verifiedPurchase: false,
-    verifiedOrderId: 'ord-col-02',
-    verificationReference: 'Pedido verificado en Medellín',
-    approved: false,
-    publicationRightsConfirmed: false,
-    sourceUrl: 'https://multydrink.com/',
   }),
   Object.freeze({
-    id: 'laura-p',
-    name: 'Laura P.',
-    location: 'Cali',
-    comment: 'El sabor es delicioso y realmente se nota la diferencia en mi energía y enfoque.',
-    rating: 5,
+    id: 'manuela',
+    name: 'Manuela',
+    location: 'Experiencia compartida',
+    comment: 'Yo me sentí en esa reunión como tan chévere, como con energía, con aliento.',
+    topic: 'Cansancio y ánimo',
+    sourceNote: 'Fragmento de testimonio en video · 05:01–05:09',
+    transcriptProvided: true,
     verifiedPurchase: false,
-    verifiedOrderId: 'ord-col-03',
-    verificationReference: 'Pedido verificado en Cali',
-    approved: false,
-    publicationRightsConfirmed: false,
-    sourceUrl: 'https://multydrink.com/',
   }),
 ]);
 
