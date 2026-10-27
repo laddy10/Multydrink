@@ -833,6 +833,32 @@ existing controls and forms stay intact. */
   margin-top:15px;
   min-height:53px
 }
+/* Final offer cards: clear pricing hierarchy on the approved white section. */
+.final-offers { align-items:stretch; gap:clamp(24px,4vw,54px); }
+.final-offer { display:flex; flex-direction:column; border:1px solid #e5e9de; border-radius:18px; background:#fff; overflow:hidden; }
+.final-offer-family { border-color:#b3cd8a; box-shadow:0 10px 34px #203a1510; }
+.final-offer .offer-photo { flex-shrink:0; height:320px; margin:0; background:#f7f8f4; }
+.final-offer .offer-photo img { max-width:100%; max-height:100%; object-fit:contain; }
+.final-offer .offer-copy { display:flex; flex-direction:column; flex:1; min-width:0; padding:25px 27px 27px; }
+.final-offer .offer-copy h3 { margin:0; font-size:clamp(23px,2.1vw,29px); line-height:1.2; color:#192016; }
+.final-offer .offer-copy .offer-meta { margin:9px 0 0; color:#596453; font-size:13px; line-height:1.5; }
+.final-offer .offer-pricing { display:flex; flex-direction:column; align-items:flex-start; justify-content:center; min-height:111px; padding:13px 0 16px; margin-top:12px; border-top:1px solid #e9eee3; }
+.final-offer .offer-price { display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 13px; margin:0; color:#172018; }
+.final-offer .offer-price strong { display:block; color:#172018; font:700 clamp(32px,3vw,43px)/1.12 var(--heading); letter-spacing:-1.1px; opacity:1; }
+.final-offer .offer-price del { color:#7a8075; font-size:14px; opacity:1; }
+.final-offer .offer-copy .offer-saving { display:inline-flex; align-items:center; margin:11px 0 0; border-radius:6px; background:#eaf3db; color:#34531c; font-size:12px; font-weight:700; letter-spacing:.2px; padding:6px 11px; }
+.final-offer .offer-copy .button { margin-top:auto; min-height:54px; background:#151a13; color:#fff; border-radius:32px; }
+.final-offer-family .offer-copy .button { background:#34452d; color:#fff; }
+@media (max-width:800px) {
+  .final-offers { gap:22px; }
+  .final-offer .offer-photo { height:260px; }
+  .final-offer .offer-copy { padding:22px 18px; }
+}
+@media (max-width:640px) {
+  .final-offers { gap:28px; }
+  .final-offer .offer-photo { height:290px; }
+  .final-offer .offer-copy { padding:22px; }
+}
 .faq-section {
   background:#10130e
 }
