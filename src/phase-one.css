@@ -901,6 +901,35 @@ existing controls and forms stay intact. */
 .faq-grid .accordion p {
   font-size:12px
 }
+/* FAQ layout: align active questions with category navigation, not with the title. */
+.faq-section .faq-grid {
+  display:grid;
+  grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+  grid-template-areas:"intro ." "categories answers";
+  column-gap:clamp(40px,6vw,95px);
+  row-gap:32px;
+  align-items:start;
+}
+.faq-intro { grid-area:intro; }
+.faq-section .faq-categories { grid-area:categories; margin-top:0; width:100%; max-width:350px; }
+.faq-section #faq-list { grid-area:answers; min-width:0; }
+.faq-active-category {
+  margin:0 0 14px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  line-height:1.5;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+@media (max-width:800px) {
+  .faq-section .faq-grid {
+    grid-template-columns:1fr;
+    grid-template-areas:"intro" "categories" "answers";
+    gap:24px;
+  }
+  .faq-section .faq-categories { max-width:none; }
+}
 .order-section {
   border-bottom:1px solid var(--line)
 }
