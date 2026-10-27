@@ -11,11 +11,11 @@ export function renderResearch() {
   return research.map(item => `<article><strong class="research-year">${esc(item.year)}</strong><h3>${esc(item.label)}</h3><p>${esc(item.description)}</p></article>`).join('');
 }
 export function renderNutrition() {
-  const transcript = `<div class="nutrition-sheet"><span>DATOS DECLARADOS EN EL EMPAQUE</span><h3>Información<br>por porción</h3><p>${nutrition.servings} porciones por caja · 1 sobre (${nutrition.servingGrams} g)</p><table><caption class="sr-only">Datos nutricionales confirmados por porción de 10 gramos</caption><tbody>${nutrition.rows.map(([label, value]) => `<tr><th scope="row">${label}</th><td>${value}</td></tr>`).join('')}</tbody></table><p class="nutrition-note">Selección de datos de la etiqueta. Consulta tu empaque para la información nutricional completa.</p></div>`;
   const label = productMedia.nutritionLabel;
-  if (!label) return transcript;
-  return `<figure class="nutrition-label-figure"><a href="${esc(label.src)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir la etiqueta nutricional completa en una pestaña nueva"><img class="real-nutrition-label" ${imageAttributes(label, '(max-width: 560px) 90vw, 540px')} loading="lazy"></a><figcaption>Etiqueta suministrada de MultyDrink. <a href="${esc(label.src)}" target="_blank" rel="noopener noreferrer">Abrir en tamaño completo ↗</a></figcaption></figure><details class="nutrition-transcript"><summary>Leer los datos principales de la etiqueta</summary>${transcript}<p>Ingredientes declarados: pulpa concentrada de café, uva en polvo, sirope orgánico de agave azul, extracto de té negro, betaglucanos de Ganoderma lucidum y sabor natural a limón.</p><p>Preparación declarada: diluir un sobre en 250 mL de agua fría o a temperatura ambiente. Mezclar bien antes de consumir. Conservar en un lugar fresco y seco, alejado de la luz solar.</p></details>`;
+  if (!label) return '<p class="nutrition-unavailable">Consulta la información nutricional en el empaque del producto.</p>';
+  return `<figure class="nutrition-label-figure"><a href="${esc(label.src)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir la etiqueta nutricional original completa en una pestaña nueva"><img class="real-nutrition-label" ${imageAttributes(label, '(max-width: 560px) 90vw, 430px')} loading="lazy"></a><figcaption>Etiqueta original de MultyDrink. <a href="${esc(label.src)}" target="_blank" rel="noopener noreferrer">Ampliar imagen ↗</a></figcaption></figure>`;
 }
+
 export function renderFinalOffers() {
   return packages.map(item => {
     const photo = item.id === 'individual' ? productMedia.individual : productMedia.family;
