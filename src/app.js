@@ -82,7 +82,15 @@ export function initApp(doc = document, win = window, options = {}) {
     $('#privacy-help').textContent = 'Consulta quién recibe tus datos y cómo ejercer tus derechos.';
     $('#privacy-dialog').querySelector('p:not(.eyebrow)').textContent = `Consulta la política de ${commerce.merchantName || 'el vendedor'} antes de enviar tus datos.`;
     $('#privacy-dialog').querySelectorAll('p:not(.eyebrow)').forEach((p, index) => { if (index > 0) p.hidden = true; });
-    const privacyAnchor = $('#privacy-dialog').querySelector('a');
+    // The local placeholder dialog has no external link until a seller policy is configured.
+    let privacyAnchor = $('#privacy-dialog').querySelector('a');
+    if (!privacyAnchor) {
+      privacyAnchor = doc.createElement('a');
+      const paragraph = doc.createElement('p');
+      paragraph.append(privacyAnchor);
+      $('#privacy-dialog').append(paragraph);
+    }
+    privacyAnchor.target = '_blank'; privacyAnchor.rel = 'noopener noreferrer';
     privacyAnchor.href = commerce.privacyPolicyUrl; privacyAnchor.textContent = 'Leer la política del vendedor ↗';
   } else {
     $('#privacy-link').addEventListener('click', event => { event.preventDefault(); openDialog('privacy-dialog'); });

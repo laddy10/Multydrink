@@ -48,7 +48,8 @@ test('Real media is mapped to gallery, final offers, nutrition, tabs and selecte
     assert.ok($('.final-offer img').src.endsWith(productMedia.individual.src));
     assert.ok($('.real-nutrition-label').src.endsWith(productMedia.nutritionLabel.src));
     assert.equal($('.nutrition-label-figure a').getAttribute('href'), productMedia.nutritionLabel.src);
-    assert.match($('.nutrition-transcript').textContent, /0,2 g/);
+    assert.equal($('.nutrition-transcript'), null, 'Approved nutrition presentation uses the original label');
+    assert.match($('#nutrition-portion').textContent, /0,2 g/);
     assert.equal($('#comparacion').hidden, false);
     assert.equal($('#comparacion img.comparison-base').getAttribute('src'), comparisonMedia.second.src);
     assert.equal($('#comparacion .comparison-overlay img').getAttribute('src'), comparisonMedia.first.src);

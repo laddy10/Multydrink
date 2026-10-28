@@ -18,6 +18,11 @@ for (const item of configuredImages) {
 }
 for (const file of approvedVideoFiles) await stat(file);
 
+const rootAssets = (await readdir('assets')).filter(name => /\.(webp|ttf|svg)$/.test(name) || approvedVideoFiles.has('assets/' + name) || name === 'favicon.png' || name.endsWith('-LICENSE.txt'));
+// Packaging and building share the exact asset selection; listing never writes dist.
+if (process.argv.includes('--list-inputs')) {
+  console.log(JSON.stringify([...new Set([...configuredImageFiles, ...approvedVideoFiles, ...rootAssets.map(name => 'assets/' + name)])].sort()));
+} else {
 const output = path.resolve('dist');
 if (output !== path.join(process.cwd(), 'dist')) throw new Error('Unexpected build target');
 // Rebuild only this project's known output directory; stale assets must not ship.
@@ -27,9 +32,7 @@ const index = (await readFile('index.html', 'utf8')).replace('<script type="appl
 await writeFile('dist/index.html', index);
 await cp('src', 'dist/src', { recursive: true });
 await mkdir('dist/assets', { recursive: true });
-for (const name of await readdir('assets')) {
-  if (/\.(webp|ttf|svg)$/.test(name) || approvedVideoFiles.has('assets/' + name) || name === 'favicon.png' || name.endsWith('-LICENSE.txt')) await cp(path.join('assets', name), path.join('dist/assets', name));
-}
+for (const name of rootAssets) await cp(path.join('assets', name), path.join('dist/assets', name));
 for (const file of configuredImageFiles) {
   const destination = path.join('dist', file);
   await mkdir(path.dirname(destination), { recursive: true });
@@ -48,3 +51,4 @@ async function directorySize(directory) {
 const total = await directorySize('dist/assets');
 for (const match of index.matchAll(/(?:src|href)="((?:assets|src)\/[^"#]+)"/g)) await stat(path.join('dist', match[1]));
 console.log(`Build OK: dist/index.html; assets ${(total / 1024).toFixed(0)} KB. No runtime dependencies.`);
+}
