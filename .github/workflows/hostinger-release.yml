@@ -1,0 +1,79 @@
+name: Validate source package and sync to Hostinger
+on:
+  workflow_call:
+    inputs:
+      publish:
+        required: true
+        type: boolean
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - run: npm ci
+      - run: npm test
+      - name: Prepare exact build inputs (no compilation)
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: node scripts/hostinger-release.mjs prepare . "$SOURCE_SHA" release-source
+      - name: Keep delivery package clean; build an identical isolated copy
+        run: cp -R release-source release-check
+      - run: npm ci
+        working-directory: release-check
+      - run: npm run build
+        working-directory: release-check
+      - name: Smoke test the packaged website
+        run: npm run check:build -- release-check/dist
+      - name: Verify untouched delivery input
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: node scripts/hostinger-release.mjs verify release-source "$SOURCE_SHA"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: hostinger-source-${{ github.sha }}
+          path: release-source/
+          if-no-files-found: error
+          retention-days: 14
+  publish:
+    needs: validate
+    if: inputs.publish && github.repository == 'laddy10/Multydrink' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: hostinger-production
+    concurrency:
+      group: hostinger-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: hostinger-source-${{ github.sha }}
+          path: artifact
+      - name: Reject an obsolete main run before syncing
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          CURRENT_SHA=$(git ls-remote https://github.com/laddy10/Multydrink.git refs/heads/main | cut -f1)
+          test "$CURRENT_SHA" = "$SOURCE_SHA"
+      - name: Sync sources; Hostinger builds and serves dist
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+          HOSTINGER_PUBLISH_ENABLED: ${{ vars.HOSTINGER_PUBLISH_ENABLED }}
+          HOSTINGER_DELIVERY_MODE: ${{ vars.HOSTINGER_DELIVERY_MODE }}
+          HOSTINGER_CONTENTS_TOKEN: ${{ secrets.HOSTINGER_CONTENTS_TOKEN }}
+        run: node scripts/hostinger-release.mjs publish artifact "$SOURCE_SHA"

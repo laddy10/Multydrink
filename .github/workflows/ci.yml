@@ -1,0 +1,22 @@
+name: Validate MultyDrink
+on:
+  push:
+    branches: [main, design/focus-hero-fidelity]
+  pull_request:
+    branches: [main, design/focus-hero-fidelity]
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Sync current main after validation and environment approval
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: multydrink-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  delivery:
+    uses: ./.github/workflows/hostinger-release.yml
+    with:
+      publish: ${{ github.repository == 'laddy10/Multydrink' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish)) }}

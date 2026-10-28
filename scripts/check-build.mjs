@@ -1,10 +1,12 @@
 import { spawn } from 'node:child_process';
 import { readFile, readdir } from 'node:fs/promises';
 import assert from 'node:assert/strict';
+import path from 'node:path';
 import { Window } from 'happy-dom';
 
 const port = 4187;
-const server = spawn(process.execPath, ['scripts/serve.mjs', 'dist'], { env: { ...process.env, PORT: String(port) }, stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true });
+const output = path.resolve(process.argv[2] || 'dist');
+const server = spawn(process.execPath, ['scripts/serve.mjs', output], { env: { ...process.env, PORT: String(port) }, stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true });
 try {
   await new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(new Error('Preview server did not start')), 10000);
@@ -31,8 +33,8 @@ try {
     }
     return files;
   }
-  const assets = await listFiles('dist/assets');
-  const modules = await readdir('dist/src');
+  const assets = await listFiles(path.join(output, 'assets'));
+  const modules = await readdir(path.join(output, 'src'));
   for (const file of [...assets.map(name => '/assets/' + name), ...modules.map(name => '/src/' + name)]) {
     const asset = await fetch(base + file);
     assert.equal(asset.status, 200, file);
@@ -45,7 +47,7 @@ try {
   const win = new Window({ settings: { disableCSSFileLoading: true, disableJavaScriptFileLoading: true } });
   for (const name of cssFiles) {
     const style = win.document.createElement('style');
-    style.textContent = await readFile('dist/src/' + name, 'utf8');
+    style.textContent = await readFile(path.join(output, 'src', name), 'utf8');
     win.document.head.append(style);
     assert.ok(style.sheet.cssRules.length > 0, `Stylesheet parses: ${name}`);
   }
